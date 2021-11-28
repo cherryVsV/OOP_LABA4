@@ -23,6 +23,7 @@ public class Doctor implements Serializable {
     private int experienceInYears;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   // @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<History> history;
 
     public List<History> getHistory() {

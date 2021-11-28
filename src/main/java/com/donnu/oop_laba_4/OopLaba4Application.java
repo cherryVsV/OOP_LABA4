@@ -36,7 +36,6 @@ public class OopLaba4Application {
             History history1 = new History(new Date(), "Лишай", 1000, "Мазь антибактериальная");
             History history2 = new History(new Date(), "Микоз", 1000, "Антибиотики");
             owner1.setPets(pet1);
-           // pet1.setOwners(owner1);
             owner2.setPets(pet2);
             history1.setDoctor(doctor1);
             history2.setDoctor(doctor2);
@@ -52,6 +51,11 @@ public class OopLaba4Application {
             session.save(history1);
             session.save(history2);
 
+            session.getTransaction().commit();
+
+            session = factory.getCurrentSession();
+            session.beginTransaction();
+
             Pet db_pet1 = session.get(Pet.class, 1);
             System.out.println(db_pet1.toString());
 
@@ -61,8 +65,13 @@ public class OopLaba4Application {
             Doctor db_doctor1 = session.get(Doctor.class, 1);
             System.out.println(db_doctor1.toString());
 
-            Doctor db_doctor2 = session.get(Doctor.class, 2);
-            System.out.println(db_doctor2.toString());
+            System.out.println("EAGER");
+            System.out.println("---Get Doctor---");
+            Doctor doctor_eager = session.get(Doctor.class, 2);
+            System.out.println("---Show Doctor---");
+            System.out.println(doctor_eager);
+            System.out.println("Show histories of doctor");
+            System.out.println(doctor_eager.getHistory());
 
             Owner db_owner1 = session.get(Owner.class, 1);
             System.out.println(db_owner1.toString());
